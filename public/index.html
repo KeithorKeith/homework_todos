@@ -13,13 +13,17 @@
     <div id="app">
         <h1>To Do's</h1>
     <ul>
-        <li v-for="todo in todos">{{ todo }}</li>
+        <li v-for="(todo, index) in todos" v-bind:class="todo.isCompleted ? 'complete':'not-complete'">
+            <span>{{ todo.name }}</span>
+            <span v-if="todo.isCompleted">Complete!</span>
+            <button v-if="!todo.isCompleted" v-on:click="completeTodo(index)">Complete</button>
+        </li>
     </ul>
 
-    <form>
+    <form v-on:submit.prevent="saveNewTodo">
         <label for="new-todo"></label>
         <input id="new-todo" type="text" v-model="newTodo" />
-        <input type="submit" value="Save Item" />
+        <input type="submit" value="Save New Todo" />
     </form>
         
 
